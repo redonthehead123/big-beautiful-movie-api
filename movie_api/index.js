@@ -1,9 +1,13 @@
 const express = require('express');
-  morgan = require('morgan');
+const morgan = require('morgan');
 
 const app = express();
 
 app.use(morgan('common'));
+
+app.get('/', (req, res) => {
+  res.send('Welcome to the Big Beautiful Movie API! Use /movies to see the top 10 movies or /documentation.html for more info.');
+});
 
 app.get('/movies', (req, res) => {
   const movies = [
