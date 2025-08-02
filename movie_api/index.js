@@ -4,25 +4,56 @@ const morgan = require('morgan');
 const app = express();
 
 app.use(morgan('common'));
+app.use(express.json());
 
+// Home route
 app.get('/', (req, res) => {
   res.send('Welcome to the Big Beautiful Movie API! Use /movies to see the top 10 movies or /documentation.html for more info.');
 });
 
+// Return a list of ALL movies
 app.get('/movies', (req, res) => {
-  const movies = [
-    { title: "The Shawshank Redemption", year: 1994, director: "Frank Darabont" },
-    { title: "The Godfather", year: 1972, director: "Francis Ford Coppola" },
-    { title: "The Dark Knight", year: 2008, director: "Christopher Nolan" },
-    { title: "Pulp Fiction", year: 1994, director: "Quentin Tarantino" },
-    { title: "Forrest Gump", year: 1994, director: "Robert Zemeckis" },
-    { title: "Inception", year: 2010, director: "Christopher Nolan" },
-    { title: "Fight Club", year: 1999, director: "David Fincher" },
-    { title: "The Matrix", year: 1999, director: "The Wachowskis" },
-    { title: "Goodfellas", year: 1990, director: "Martin Scorsese" },
-    { title: "The Lord of the Rings: The Return of the King", year: 2003, director: "Peter Jackson" }
-  ];
-  res.json(movies);
+  res.send('Successful GET request returning data on all movies');
+});
+
+// Return data about a single movie by title
+app.get('/movies/:title', (req, res) => {
+  res.send(`Successful GET request returning data about the movie: ${req.params.title}`);
+});
+
+// Return data about a genre by name
+app.get('/genres/:name', (req, res) => {
+  res.send(`Successful GET request returning data about the genre: ${req.params.name}`);
+});
+
+// Return data about a director by name
+app.get('/directors/:name', (req, res) => {
+  res.send(`Successful GET request returning data about the director: ${req.params.name}`);
+});
+
+// Allow new users to register
+app.post('/users', (req, res) => {
+  res.send('Successful POST request registering a new user');
+});
+
+// Allow users to update their user info (username)
+app.put('/users/:username', (req, res) => {
+  res.send(`Successful PUT request updating user info for: ${req.params.username}`);
+});
+
+// Allow users to add a movie to their list of favorites
+app.post('/users/:username/movies/:movieID', (req, res) => {
+  res.send(`Successful POST request adding movie ${req.params.movieID} to ${req.params.username}'s favorites`);
+});
+
+// Allow users to remove a movie from their list of favorites
+app.delete('/users/:username/movies/:movieID', (req, res) => {
+  res.send(`Successful DELETE request removing movie ${req.params.movieID} from ${req.params.username}'s favorites`);
+});
+
+// Allow existing users to deregister
+app.delete('/users/:username', (req, res) => {
+  res.send(`Successful DELETE request deregistering user: ${req.params.username}`);
 });
 
 app.use(express.static('public'));
