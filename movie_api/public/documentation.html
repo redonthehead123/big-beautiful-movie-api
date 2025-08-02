@@ -26,5 +26,250 @@
             </ul>
         </li>
     </ol>
+
+    <h2>API Endpoints</h2>
+    <table border="1" cellpadding="6" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Request</th>
+                <th>URL</th>
+                <th>Response</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>/movies</td>
+                <td>Returns a list of all movies (JSON)</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/movies/:title</td>
+                <td>Returns data about a single movie by title</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/genres/:name</td>
+                <td>Returns data (description) about a genre by name</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/directors/:name</td>
+                <td>Returns data about a director by name</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/users</td>
+                <td>Allows new users to register</td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>/users/:username</td>
+                <td>Allows users to update their user info (username)</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/users/:username/movies/:movieID</td>
+                <td>Adds a movie to a user's list of favorites</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/users/:username/movies/:movieID</td>
+                <td>Removes a movie from a user's list of favorites</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/users/:username</td>
+                <td>Deregisters an existing user</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Endpoint Details</h2>
+
+    <h3>Get All Movies</h3>
+    <ul>
+        <li><strong>Description:</strong> Returns a list of all movies.</li>
+        <li><strong>URL:</strong> <code>/movies</code></li>
+        <li><strong>Method:</strong> GET</li>
+        <li><strong>Query Parameters:</strong> None</li>
+        <li><strong>Request Body:</strong> None</li>
+        <li><strong>Response Example:</strong>
+            <pre>
+[
+  {
+    "title": "Inception",
+    "description": "A thief who steals corporate secrets...",
+    "genre": { "name": "Thriller", "description": "..." },
+    "director": { "name": "Christopher Nolan", "bio": "...", "birth": 1970 },
+    "imageURL": "http://...",
+    "featured": true
+  },
+  ...
+]
+            </pre>
+        </li>
+    </ul>
+
+    <h3>Get Movie by Title</h3>
+    <ul>
+        <li><strong>Description:</strong> Returns data about a single movie by title.</li>
+        <li><strong>URL:</strong> <code>/movies/:title</code></li>
+        <li><strong>Method:</strong> GET</li>
+        <li><strong>Query Parameters:</strong> <code>:title</code> (movie title in URL)</li>
+        <li><strong>Request Body:</strong> None</li>
+        <li><strong>Response Example:</strong>
+            <pre>
+{
+  "title": "Inception",
+  "description": "A thief who steals corporate secrets...",
+  "genre": { "name": "Thriller", "description": "..." },
+  "director": { "name": "Christopher Nolan", "bio": "...", "birth": 1970 },
+  "imageURL": "http://...",
+  "featured": true
+}
+            </pre>
+        </li>
+    </ul>
+
+    <h3>Get Genre by Name</h3>
+    <ul>
+        <li><strong>Description:</strong> Returns data (description) about a genre by name.</li>
+        <li><strong>URL:</strong> <code>/genres/:name</code></li>
+        <li><strong>Method:</strong> GET</li>
+        <li><strong>Query Parameters:</strong> <code>:name</code> (genre name in URL)</li>
+        <li><strong>Request Body:</strong> None</li>
+        <li><strong>Response Example:</strong>
+            <pre>
+{
+  "name": "Thriller",
+  "description": "Thriller is a genre characterized by..."
+}
+            </pre>
+        </li>
+    </ul>
+
+    <h3>Get Director by Name</h3>
+    <ul>
+        <li><strong>Description:</strong> Returns data about a director by name.</li>
+        <li><strong>URL:</strong> <code>/directors/:name</code></li>
+        <li><strong>Method:</strong> GET</li>
+        <li><strong>Query Parameters:</strong> <code>:name</code> (director name in URL)</li>
+        <li><strong>Request Body:</strong> None</li>
+        <li><strong>Response Example:</strong>
+            <pre>
+{
+  "name": "Christopher Nolan",
+  "bio": "Christopher Edward Nolan is a British-American film director...",
+  "birth": 1970,
+  "death": null
+}
+            </pre>
+        </li>
+    </ul>
+
+    <h3>Register New User</h3>
+    <ul>
+        <li><strong>Description:</strong> Allows new users to register.</li>
+        <li><strong>URL:</strong> <code>/users</code></li>
+        <li><strong>Method:</strong> POST</li>
+        <li><strong>Query Parameters:</strong> None</li>
+        <li><strong>Request Body Example (JSON):</strong>
+            <pre>
+{
+  "username": "johndoe",
+  "password": "password123",
+  "email": "john@example.com",
+  "birthday": "1990-01-01"
+}
+            </pre>
+        </li>
+        <li><strong>Response Example:</strong>
+            <pre>
+{
+  "username": "johndoe",
+  "email": "john@example.com",
+  "birthday": "1990-01-01",
+  "favoriteMovies": []
+}
+            </pre>
+        </li>
+    </ul>
+
+    <h3>Update User Info</h3>
+    <ul>
+        <li><strong>Description:</strong> Allows users to update their user info (username).</li>
+        <li><strong>URL:</strong> <code>/users/:username</code></li>
+        <li><strong>Method:</strong> PUT</li>
+        <li><strong>Query Parameters:</strong> <code>:username</code> (current username in URL)</li>
+        <li><strong>Request Body Example (JSON):</strong>
+            <pre>
+{
+  "username": "johnsmith",
+  "password": "newpassword",
+  "email": "johnsmith@example.com",
+  "birthday": "1990-01-01"
+}
+            </pre>
+        </li>
+        <li><strong>Response Example:</strong>
+            <pre>
+{
+  "username": "johnsmith",
+  "email": "johnsmith@example.com",
+  "birthday": "1990-01-01",
+  "favoriteMovies": []
+}
+            </pre>
+        </li>
+    </ul>
+
+    <h3>Add Movie to Favorites</h3>
+    <ul>
+        <li><strong>Description:</strong> Adds a movie to a user's list of favorites.</li>
+        <li><strong>URL:</strong> <code>/users/:username/movies/:movieID</code></li>
+        <li><strong>Method:</strong> POST</li>
+        <li><strong>Query Parameters:</strong> <code>:username</code> (username in URL), <code>:movieID</code> (movie ID in URL)</li>
+        <li><strong>Request Body:</strong> None</li>
+        <li><strong>Response Example:</strong>
+            <pre>
+{
+  "message": "Movie has been added to favorites."
+}
+            </pre>
+        </li>
+    </ul>
+
+    <h3>Remove Movie from Favorites</h3>
+    <ul>
+        <li><strong>Description:</strong> Removes a movie from a user's list of favorites.</li>
+        <li><strong>URL:</strong> <code>/users/:username/movies/:movieID</code></li>
+        <li><strong>Method:</strong> DELETE</li>
+        <li><strong>Query Parameters:</strong> <code>:username</code> (username in URL), <code>:movieID</code> (movie ID in URL)</li>
+        <li><strong>Request Body:</strong> None</li>
+        <li><strong>Response Example:</strong>
+            <pre>
+{
+  "message": "Movie has been removed from favorites."
+}
+            </pre>
+        </li>
+    </ul>
+
+    <h3>Deregister User</h3>
+    <ul>
+        <li><strong>Description:</strong> Deregisters an existing user.</li>
+        <li><strong>URL:</strong> <code>/users/:username</code></li>
+        <li><strong>Method:</strong> DELETE</li>
+        <li><strong>Query Parameters:</strong> <code>:username</code> (username in URL)</li>
+        <li><strong>Request Body:</strong> None</li>
+        <li><strong>Response Example:</strong>
+            <pre>
+{
+  "message": "User has been deregistered."
+}
+            </pre>
+        </li>
+    </ul>
 </body>
 </html>
