@@ -71,7 +71,7 @@ app.post('/users', async (req, res) => {
     })
     .catch((error) => {
       console.error(error);
-      res.status(501).send('Error: ' + error);
+      res.status(500).send('Error: ' + error);
     });
 });
 
