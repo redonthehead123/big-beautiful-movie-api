@@ -1,3 +1,11 @@
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/Big Beautiful Database', { useNewUrlParser:true, useUnifiedTopology: true});
+
 const express = require('express');
 const morgan = require('morgan');
 
@@ -5,6 +13,7 @@ const app = express();
 
 app.use(morgan('common'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Home route
 app.get('/', (req, res) => {
@@ -31,9 +40,51 @@ app.get('/directors/:name', (req, res) => {
   res.send(`Successful GET request returning data about the director: ${req.params.name}`);
 });
 
-// Allow new users to register
-app.post('/users', (req, res) => {
-  res.send('Successful POST request registering a new user');
+//Add a user
+/* We’ll expect JSON in this format
+{
+  ID: Integer,
+  Username: String,
+  Password: String,
+  Email: String,
+  Birthday: Date
+}*/
+app.post('/users', async (req, res) => {
+  await Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + 'already exists');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
+});
+
+// Get all users
+app.get('/users', async (req, res) => {
+  await Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Allow users to update their user info (username)
