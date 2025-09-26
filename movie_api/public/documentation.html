@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Big Beautiful Movie API Documentation</title>
 </head>
 <body>
     <h1>Movie API Documentation</h1>
@@ -44,17 +44,17 @@
             </tr>
             <tr>
                 <td>GET</td>
-                <td>/movies/:title</td>
+                <td>/movies/:Title</td>
                 <td>Returns data about a single movie by title</td>
             </tr>
             <tr>
                 <td>GET</td>
-                <td>/genres/:name</td>
+                <td>/genres/:Name</td>
                 <td>Returns data (description) about a genre by name</td>
             </tr>
             <tr>
                 <td>GET</td>
-                <td>/directors/:name</td>
+                <td>/directors/:Name</td>
                 <td>Returns data about a director by name</td>
             </tr>
             <tr>
@@ -63,23 +63,33 @@
                 <td>Allows new users to register</td>
             </tr>
             <tr>
+                <td>GET</td>
+                <td>/users</td>
+                <td>Returns a list of all users</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/users/:Username</td>
+                <td>Returns data about a single user by username</td>
+            </tr>
+            <tr>
                 <td>PUT</td>
-                <td>/users/:username</td>
-                <td>Allows users to update their user info (username)</td>
+                <td>/users/:Username</td>
+                <td>Allows users to update their user info</td>
             </tr>
             <tr>
                 <td>POST</td>
-                <td>/users/:username/movies/:movieID</td>
+                <td>/users/:Username/movies/:MovieID</td>
                 <td>Adds a movie to a user's list of favorites</td>
             </tr>
             <tr>
                 <td>DELETE</td>
-                <td>/users/:username/movies/:movieID</td>
+                <td>/users/:Username/movies/:MovieID</td>
                 <td>Removes a movie from a user's list of favorites</td>
             </tr>
             <tr>
                 <td>DELETE</td>
-                <td>/users/:username</td>
+                <td>/users/:Username</td>
                 <td>Deregisters an existing user</td>
             </tr>
         </tbody>
@@ -95,15 +105,16 @@
         <li><strong>Query Parameters:</strong> None</li>
         <li><strong>Request Body:</strong> None</li>
         <li><strong>Response Example:</strong>
-            <pre>
-[
+            <pre>[
   {
-    "title": "Inception",
-    "description": "A thief who steals corporate secrets...",
-    "genre": { "name": "Thriller", "description": "..." },
-    "director": { "name": "Christopher Nolan", "bio": "...", "birth": 1970 },
-    "imageURL": "http://...",
-    "featured": true
+    "_id": "65f1c2e2e1b1c2a5d8e4b123",
+    "Title": "Inception",
+    "Description": "A thief who steals corporate secrets...",
+    "Genre": { "Name": "Thriller", "Description": "..." },
+    "Director": { "Name": "Christopher Nolan", "Bio": "..." },
+    "Actors": ["Leonardo DiCaprio", "Joseph Gordon-Levitt"],
+    "ImagePath": "http://...",
+    "Featured": true
   },
   ...
 ]
@@ -114,19 +125,20 @@
     <h3>Get Movie by Title</h3>
     <ul>
         <li><strong>Description:</strong> Returns data about a single movie by title.</li>
-        <li><strong>URL:</strong> <code>/movies/:title</code></li>
+        <li><strong>URL:</strong> <code>/movies/:Title</code></li>
         <li><strong>Method:</strong> GET</li>
-        <li><strong>Query Parameters:</strong> <code>:title</code> (movie title in URL)</li>
+        <li><strong>Query Parameters:</strong> <code>:Title</code> (movie title in URL)</li>
         <li><strong>Request Body:</strong> None</li>
         <li><strong>Response Example:</strong>
-            <pre>
-{
-  "title": "Inception",
-  "description": "A thief who steals corporate secrets...",
-  "genre": { "name": "Thriller", "description": "..." },
-  "director": { "name": "Christopher Nolan", "bio": "...", "birth": 1970 },
-  "imageURL": "http://...",
-  "featured": true
+            <pre>{
+  "_id": "65f1c2e2e1b1c2a5d8e4b123",
+  "Title": "Inception",
+  "Description": "A thief who steals corporate secrets...",
+  "Genre": { "Name": "Thriller", "Description": "..." },
+  "Director": { "Name": "Christopher Nolan", "Bio": "..." },
+  "Actors": ["Leonardo DiCaprio", "Joseph Gordon-Levitt"],
+  "ImagePath": "http://...",
+  "Featured": true
 }
             </pre>
         </li>
@@ -135,15 +147,14 @@
     <h3>Get Genre by Name</h3>
     <ul>
         <li><strong>Description:</strong> Returns data (description) about a genre by name.</li>
-        <li><strong>URL:</strong> <code>/genres/:name</code></li>
+        <li><strong>URL:</strong> <code>/genres/:Name</code></li>
         <li><strong>Method:</strong> GET</li>
-        <li><strong>Query Parameters:</strong> <code>:name</code> (genre name in URL)</li>
+        <li><strong>Query Parameters:</strong> <code>:Name</code> (genre name in URL)</li>
         <li><strong>Request Body:</strong> None</li>
         <li><strong>Response Example:</strong>
-            <pre>
-{
-  "name": "Thriller",
-  "description": "Thriller is a genre characterized by..."
+            <pre>{
+  "Name": "Thriller",
+  "Description": "Thriller is a genre characterized by..."
 }
             </pre>
         </li>
@@ -152,19 +163,15 @@
     <h3>Get Director by Name</h3>
     <ul>
         <li><strong>Description:</strong> Returns data about a director by name.</li>
-        <li><strong>URL:</strong> <code>/directors/:name</code></li>
+        <li><strong>URL:</strong> <code>/directors/:Name</code></li>
         <li><strong>Method:</strong> GET</li>
-        <li><strong>Query Parameters:</strong> <code>:name</code> (director name in URL)</li>
+        <li><strong>Query Parameters:</strong> <code>:Name</code> (director name in URL)</li>
         <li><strong>Request Body:</strong> None</li>
         <li><strong>Response Example:</strong>
-            <pre>
-{
-  "name": "Christopher Nolan",
-  "bio": "Christopher Edward Nolan is a British-American film director...",
-  "birth": 1970,
-  "death": null
-}
-            </pre>
+            <pre>{
+  "Name": "Christopher Nolan",
+  "Bio": "Christopher Edward Nolan is a British-American film director...",
+}</pre>
         </li>
     </ul>
 
@@ -175,22 +182,65 @@
         <li><strong>Method:</strong> POST</li>
         <li><strong>Query Parameters:</strong> None</li>
         <li><strong>Request Body Example (JSON):</strong>
-            <pre>
-{
-  "username": "johndoe",
-  "password": "password123",
-  "email": "john@example.com",
-  "birthday": "1990-01-01"
+            <pre>{
+  "Username": "johndoe",
+  "Password": "password123",
+  "Email": "john@example.com",
+  "Birthday": "1990-01-01"
 }
             </pre>
         </li>
         <li><strong>Response Example:</strong>
-            <pre>
-{
-  "username": "johndoe",
-  "email": "john@example.com",
-  "birthday": "1990-01-01",
-  "favoriteMovies": []
+            <pre>{
+  "_id": "65f1c2e2e1b1c2a5d8e4b789",
+  "Username": "johndoe",
+  "Password": "password123",
+  "Email": "john@example.com",
+  "Birthday": "1990-01-01T00:00:00.000Z",
+  "FavoriteMovies": []
+}
+            </pre>
+        </li>
+    </ul>
+
+    <h3>Get All Users</h3>
+    <ul>
+        <li><strong>Description:</strong> Returns a list of all users.</li>
+        <li><strong>URL:</strong> <code>/users</code></li>
+        <li><strong>Method:</strong> GET</li>
+        <li><strong>Query Parameters:</strong> None</li>
+        <li><strong>Request Body:</strong> None</li>
+        <li><strong>Response Example:</strong>
+            <pre>[
+  {
+    "_id": "65f1c2e2e1b1c2a5d8e4b789",
+    "Username": "johndoe",
+    "Password": "password123",
+    "Email": "john@example.com",
+    "Birthday": "1990-01-01T00:00:00.000Z",
+    "FavoriteMovies": []
+  },
+  ...
+]
+            </pre>
+        </li>
+    </ul>
+
+    <h3>Get User by Username</h3>
+    <ul>
+        <li><strong>Description:</strong> Returns data about a single user by username.</li>
+        <li><strong>URL:</strong> <code>/users/:Username</code></li>
+        <li><strong>Method:</strong> GET</li>
+        <li><strong>Query Parameters:</strong> <code>:Username</code> (username in URL)</li>
+        <li><strong>Request Body:</strong> None</li>
+        <li><strong>Response Example:</strong>
+            <pre>{
+  "_id": "65f1c2e2e1b1c2a5d8e4b789",
+  "Username": "johndoe",
+  "Password": "password123",
+  "Email": "john@example.com",
+  "Birthday": "1990-01-01T00:00:00.000Z",
+  "FavoriteMovies": []
 }
             </pre>
         </li>
@@ -198,27 +248,27 @@
 
     <h3>Update User Info</h3>
     <ul>
-        <li><strong>Description:</strong> Allows users to update their user info (username).</li>
-        <li><strong>URL:</strong> <code>/users/:username</code></li>
+        <li><strong>Description:</strong> Allows users to update their user info.</li>
+        <li><strong>URL:</strong> <code>/users/:Username</code></li>
         <li><strong>Method:</strong> PUT</li>
-        <li><strong>Query Parameters:</strong> <code>:username</code> (current username in URL)</li>
+        <li><strong>Query Parameters:</strong> <code>:Username</code> (current username in URL)</li>
         <li><strong>Request Body Example (JSON):</strong>
-            <pre>
-{
-  "username": "johnsmith",
-  "password": "newpassword",
-  "email": "johnsmith@example.com",
-  "birthday": "1990-01-01"
+            <pre>{
+  "Username": "johnsmith",
+  "Password": "newpassword",
+  "Email": "johnsmith@example.com",
+  "Birthday": "1990-01-01"
 }
             </pre>
         </li>
         <li><strong>Response Example:</strong>
-            <pre>
-{
-  "username": "johnsmith",
-  "email": "johnsmith@example.com",
-  "birthday": "1990-01-01",
-  "favoriteMovies": []
+            <pre>{
+  "_id": "65f1c2e2e1b1c2a5d8e4b789",
+  "Username": "johnsmith",
+  "Password": "newpassword",
+  "Email": "johnsmith@example.com",
+  "Birthday": "1990-01-01T00:00:00.000Z",
+  "FavoriteMovies": []
 }
             </pre>
         </li>
@@ -227,14 +277,20 @@
     <h3>Add Movie to Favorites</h3>
     <ul>
         <li><strong>Description:</strong> Adds a movie to a user's list of favorites.</li>
-        <li><strong>URL:</strong> <code>/users/:username/movies/:movieID</code></li>
+        <li><strong>URL:</strong> <code>/users/:Username/movies/:MovieID</code></li>
         <li><strong>Method:</strong> POST</li>
-        <li><strong>Query Parameters:</strong> <code>:username</code> (username in URL), <code>:movieID</code> (movie ID in URL)</li>
+        <li><strong>Query Parameters:</strong> <code>:Username</code> (username in URL), <code>:MovieID</code> (movie ID in URL)</li>
         <li><strong>Request Body:</strong> None</li>
         <li><strong>Response Example:</strong>
-            <pre>
-{
-  "message": "Movie has been added to favorites."
+            <pre>{
+  "_id": "65f1c2e2e1b1c2a5d8e4b789",
+  "Username": "johndoe",
+  "Password": "password123",
+  "Email": "john@example.com",
+  "Birthday": "1990-01-01T00:00:00.000Z",
+  "FavoriteMovies": [
+    "65f1c2e2e1b1c2a5d8e4b123"
+  ]
 }
             </pre>
         </li>
@@ -243,14 +299,18 @@
     <h3>Remove Movie from Favorites</h3>
     <ul>
         <li><strong>Description:</strong> Removes a movie from a user's list of favorites.</li>
-        <li><strong>URL:</strong> <code>/users/:username/movies/:movieID</code></li>
+        <li><strong>URL:</strong> <code>/users/:Username/movies/:MovieID</code></li>
         <li><strong>Method:</strong> DELETE</li>
-        <li><strong>Query Parameters:</strong> <code>:username</code> (username in URL), <code>:movieID</code> (movie ID in URL)</li>
+        <li><strong>Query Parameters:</strong> <code>:Username</code> (username in URL), <code>:MovieID</code> (movie ID in URL)</li>
         <li><strong>Request Body:</strong> None</li>
         <li><strong>Response Example:</strong>
-            <pre>
-{
-  "message": "Movie has been removed from favorites."
+            <pre>{
+  "_id": "65f1c2e2e1b1c2a5d8e4b789",
+  "Username": "johndoe",
+  "Password": "password123",
+  "Email": "john@example.com",
+  "Birthday": "1990-01-01T00:00:00.000Z",
+  "FavoriteMovies": []
 }
             </pre>
         </li>
@@ -259,15 +319,13 @@
     <h3>Deregister User</h3>
     <ul>
         <li><strong>Description:</strong> Deregisters an existing user.</li>
-        <li><strong>URL:</strong> <code>/users/:username</code></li>
+        <li><strong>URL:</strong> <code>/users/:Username</code></li>
         <li><strong>Method:</strong> DELETE</li>
-        <li><strong>Query Parameters:</strong> <code>:username</code> (username in URL)</li>
+        <li><strong>Query Parameters:</strong> <code>:Username</code> (username in URL)</li>
         <li><strong>Request Body:</strong> None</li>
         <li><strong>Response Example:</strong>
             <pre>
-{
-  "message": "User has been deregistered."
-}
+User johndoe was deleted.
             </pre>
         </li>
     </ul>
