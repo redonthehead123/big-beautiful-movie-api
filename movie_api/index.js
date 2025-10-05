@@ -4,7 +4,8 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017/BigBeautifulDatabase', { useNewUrlParser:true, useUnifiedTopology: true});
+//mongoose.connect('mongodb://localhost:27017/BigBeautifulDatabase', { useNewUrlParser:true, useUnifiedTopology: true});
+mongoose.connect(process.env.CONNECTION_URI);
 
 const express = require('express');
 const morgan = require('morgan');
