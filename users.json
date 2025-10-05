@@ -1,4 +1,0 @@
-{"_id":{"$oid":"68ba365e3d89d8eab9eec4b4"},"Username":"Alice","Email":"alice@example.com","Birthday":{"$date":"1995-04-12T00:00:00Z"},"FavoriteMovies":[{"$oid":"68b9f12c3d89d8eab9eec4aa"},{"$oid":"68ba04d83d89d8eab9eec4b0"},{"$oid":"68b9f3213d89d8eab9eec4ab"}]}
-{"_id":{"$oid":"68ba3a2b3d89d8eab9eec4b5"},"Username":"Bob","Email":"bob@example.com","Birthday":{"$date":"1990-08-22T00:00:00Z"},"FavoriteMovies":[{"$oid":"68b9f73b3d89d8eab9eec4ac"},{"$oid":"68b9f9cd3d89d8eab9eec4ad"}]}
-{"_id":{"$oid":"68ba3a2b3d89d8eab9eec4b6"},"Username":"Charlie","Email":"charlie@example.com","Birthday":{"$date":"1988-11-05T00:00:00Z"},"FavoriteMovies":[{"$oid":"68ba04d83d89d8eab9eec4af"},{"$oid":"68ba04d83d89d8eab9eec4b1"}]}
-{"_id":{"$oid":"68ba3a2b3d89d8eab9eec4b7"},"Username":"Diana","Email":"diana@example.com","Birthday":{"$date":"1992-06-01T00:00:00Z"},"FavoriteMovies":[{"$oid":"68b9f3213d89d8eab9eec4ab"},{"$oid":"68ba04d83d89d8eab9eec4b3"}]}
