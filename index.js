@@ -207,10 +207,14 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), as
 
 // Add a movie to a user's list of favorites
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $push: { FavoriteMovies: req.params.MovieID }
-   },
-   { new: true }) // This line makes sure that the updated document is returned
+  if (req.user.Username !== req.params.Username) {
+    return res.status(403).send('You can only modify your own favorites list.');
+  }
+  await Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    { $addToSet: { FavoriteMovies: req.params.MovieID } }, // prevents duplicates
+    { new: true } // This line makes sure that the updated document is returned
+  )
   .then((updatedUser) => {
     res.json(updatedUser);
   })
@@ -222,10 +226,14 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
 
 // Allow users to remove a movie from their list of favorites
 app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Users.findOneAndUpdate({ Username: req.params.Username }, {
-    $pull: { FavoriteMovies: req.params.MovieID }
-  },
-    { new: true })
+  if (req.user.Username !== req.params.Username) {
+    return res.status(403).send('You can only modify your own favorites list.');
+  }
+  await Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {$pull: { FavoriteMovies: req.params.MovieID } },
+    { new: true }
+  )
     .then((updatedUser) => {
       if (!updatedUser) {
         return res.status(404).send('User not found');
