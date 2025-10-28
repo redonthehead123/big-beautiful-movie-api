@@ -207,7 +207,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), as
 
 // Add a movie to a user's list of favorites
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user.Username !== req.params.Username) {
+  if (req.user.Username !== req.params.Username){
     return res.status(403).send('You can only modify your own favorites list.');
   }
   await Users.findOneAndUpdate(
