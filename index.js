@@ -1,11 +1,18 @@
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+require('dotenv').config(); // load .env in development
 
 const Movies = Models.Movie;
 const Users = Models.User;
 
-//mongoose.connect('mongodb://localhost:27017/BigBeautifulDatabase', { useNewUrlParser:true, useUnifiedTopology: true});
-mongoose.connect(process.env.CONNECTION_URI);
+const connectionUri = process.env.CONNECTION_URI || 'mongodb://localhost:27017/BigBeautifulDatabase';
+
+mongoose.connect(connectionUri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB:', connectionUri))
+  .catch((err) => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+  });
 
 const express = require('express');
 const morgan = require('morgan');
