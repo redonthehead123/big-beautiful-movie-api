@@ -29,7 +29,24 @@ app.get('/', (req, res) => {
 });
 
 const cors = require('cors');
-app.use(cors());
+// Using the next line would allow all origins.
+// app.use(cors());
+let allowedOrigins = [
+  'http://localhost:8080',
+  'http://localhost:1234',
+  'http://myflixbyred.netlify.app'
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOriginsllowedOrigins.indexOf(origin) === -1) {
+      let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 let auth = require('./auth')(app);
 const passport = require('passport');
